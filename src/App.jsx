@@ -24,22 +24,24 @@ const produtos = [
 
 
 const App = () => {
+  const data = produtos.filter(({preco}) => Number(preco.replace("R$ ", "")) > 1500)
+ 
 
   return (
     <>
-    {produtos.map(product => {
-      const formatedPrice = Number(product.preco.replace("R$ ", ""));
-      
-      return(   
-      <section key={product.id} className="product-card">
-        <h1>{product.nome}</h1>
-        <h2>R$ {product.preco}</h2>
-        <ul>
-          {product.cores.map(color => <li style={{backgroundColor: color}} key={color}>{color}</li>)}
-        </ul>
-      </section>
-      )
-    })}
+  <section>
+    {data.map(({id, nome, preco, cores}) => 
+    <div key={id}>
+      <h1>{nome}</h1>
+      <h2>{preco}</h2>
+      <ul>
+        {cores.map((color) =>
+           <li style={{color: "#fff", backgroundColor: color}} key={color}>{color}</li>
+           )}
+      </ul>
+    </div>
+  )}
+  </section>
   </>
   )
 } 
