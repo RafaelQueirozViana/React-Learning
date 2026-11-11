@@ -22,24 +22,22 @@ const mario = {
     { nome: 'Guitarra', preco: 'R$ 3500' },
   ],
   ativa: false,
+
+
 };
-
-
 
 const App = () => {
   const dados = luana;
 
-  const filtered = dados.compras.reduce((acumulator, p) => {
-  const price = Number(p.preco.replace("R$", ""));
-  acumulator+=price
-  } , 0);
+  const totalSpent = dados.compras.map(product => Number(product.preco.replace("R$ ", ""))).reduce((a,b) => a+b)
 
   return (
     <>
-  <p>Client: {dados.cliente}</p>
-  <p>Age: {dados.idade}</p>
-  <p>Situation: {dados.ativa ? "Active": "Not active"}</p>
-  <p>Total Spent: {dados.compras.reduce((acumulator, p) => acumulator+=p.preco, 0)}</p>
+  <p>{dados.cliente}</p>
+  <p>{dados.idade} years</p>
+  <p>Situação: <span style={{color: dados.ativa ? "green" : "red"}}>{dados.ativa ? "Ativa" : "Inativa"}</span> </p>
+  <p>Total gasto: {totalSpent}</p>
+  {totalSpent >= 10000 && <p>"You're spending too much.</p>} 
   </>
   )
 }
