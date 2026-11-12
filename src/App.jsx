@@ -1,16 +1,17 @@
 import React from "react";
-
-import Footer from "./Components/Footer";
+import Products from "./Pages/Products";
+import Home from "./Pages/Home";
 import Header from "./Components/Header";
-import Form from "./Components/Form";
 
 const App = () => {
+  const { pathname } = window.location;
   return (
     <>
       <Header />
-      <Form />
-      <Form />
-      <Footer />
+
+      {pathname == "/" && <Home />}
+
+      {pathname == "/products" && <Products />}
     </>
   );
 };
