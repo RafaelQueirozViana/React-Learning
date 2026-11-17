@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 
 const App = () => {
   const [likes, setLikes] = React.useState(0);
-  const [typedInput, setTypedInput] = React.useState("Nothing");
+  const [input, setTypedInput] = React.useState("no");
 
   const handleLikes = () => {
     setLikes(likes + 1);
@@ -12,6 +12,22 @@ const App = () => {
   const handleInput = ({target}) => {
     setTypedInput(target.value)
   }
+
+
+  useEffect(() => {
+    if(likes > 10) {
+      console.log("Congratulations, you reached to " + likes + " likes!")
+    }
+
+    if(input.length >= 5) {
+      console.log("you exceed the maximum length of the input!")
+    }
+  }, [likes,input]);
+
+  useEffect(() => {
+   console.log("Welcome to my webstite!") 
+  }, []);
+
    
 
   return (
@@ -23,8 +39,8 @@ const App = () => {
     </div>
 
     <div className="input-container">
-      <p>What did you type in the input: {typedInput} </p>
-      <input onInput={handleInput} type="text" placeholder={typedInput} / >
+      <p>What did you type in the input: {input} </p>
+      <input onInput={handleInput} type="text"  / >
     </div>
   
 
