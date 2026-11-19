@@ -1,49 +1,30 @@
 import React, { useEffect } from "react";
+import "./app.css";
+import FilterCard from "./FilterCard";
 
+const categories = ["eletronic", "document", "key"];
+const initialFilter = "all";
+categories.unshift(initialFilter);
 
 const App = () => {
-  const [likes, setLikes] = React.useState(0);
-  const [input, setTypedInput] = React.useState("no");
+  const [currentFilter, setCurrentFilter] = React.useState(initialFilter);
 
-  const handleLikes = () => {
-    setLikes(likes + 1);
-  }
-
-  const handleInput = ({target}) => {
-    setTypedInput(target.value)
-  }
-
-
-  useEffect(() => {
-    if(likes > 10) {
-      console.log("Congratulations, you reached to " + likes + " likes!")
-    }
-
-    if(input.length >= 5) {
-      console.log("you exceed the maximum length of the input!")
-    }
-  }, [likes,input]);
-
-  useEffect(() => {
-   console.log("Welcome to my webstite!") 
-  }, []);
-
-   
+  const changeFilter = (newFilter) => {
+    setCurrentFilter(newFilter);
+  };
 
   return (
     <>
-    <div className="likes-container">
-     <p>Likes quantity: {likes}</p>
-     <button onClick={handleLikes}>Give Like</button>
-
-    </div>
-
-    <div className="input-container">
-      <p>What did you type in the input: {input} </p>
-      <input onInput={handleInput} type="text"  / >
-    </div>
-  
-
+      <div className="container">
+        {categories.map((category) => (
+          <FilterCard
+            key={category}
+            category={category}
+            isSelected={currentFilter == category}
+            changeFilter={changeFilter}
+          />
+        ))}
+      </div>
     </>
   );
 };
